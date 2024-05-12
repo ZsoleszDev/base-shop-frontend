@@ -13,6 +13,7 @@ import {BuyNowComponent} from "./buy-now.component";
 import {BuyNowRoutingModule} from "./buy-now-routing.module";
 import {ScrollPanelModule} from "primeng/scrollpanel";
 import {RadioButtonModule} from "primeng/radiobutton";
+import {BaseLoadingModule} from "../../../additional-modules/base-loading/base-loading.module";
 
 
 
@@ -32,7 +33,8 @@ import {RadioButtonModule} from "primeng/radiobutton";
         TagModule,
         BuyNowRoutingModule,
         ScrollPanelModule,
-        RadioButtonModule
+        RadioButtonModule,
+        BaseLoadingModule
     ]
 })
 export class BuyNowModule { }

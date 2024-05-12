@@ -27,6 +27,7 @@ export class BuyNowComponent implements OnInit{
     cityBad = false;
     publicBad = false;
     phoneBad = false;
+    loading = false;
 
     orderDetails: OrderDetails = {
         fullName: '',
@@ -63,12 +64,14 @@ export class BuyNowComponent implements OnInit{
     }
 
     placeOrder(orderForm: NgForm){
+        this.loading = true;
         if (this.formChecker(orderForm)){
             this.orderDetails.fullName = this.user.getUD_userLastName() + ' ' + this.user.getUD_userFirstName();
             this.orderDetails.fullAddress = this.postalCode + ' ' + this.city + ' ' + this.publicAreaName;
             this.prodsrv.placeOrder(this.orderDetails,this.isSingleProductCheckout).subscribe({
                 next: (resp) =>{
                     orderForm.reset();
+                    this.loading = false;
                     this.router.navigate(['/orderConfirm']);
                 },
                 error: (err) => {

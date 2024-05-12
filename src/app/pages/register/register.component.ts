@@ -55,6 +55,9 @@ export class RegisterComponent {
                     error: (error) => {
                         if (error.status == 500){
                             this.toast.error('Nem töltött ki minden mezőt!','');
+                            this.loading = false;
+                        }else{
+                            this.loading = false;
                         }
 
                     }

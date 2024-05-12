@@ -16,7 +16,8 @@
                     <h5>A kosara jelenleg üres.</h5>
                 </div>
             </div>
-            <p-scrollPanel *ngIf="!cartDetailsNull" [style]="{ width: '100%', height: '400px' }">
+            <base-loading *ngIf="loading" ></base-loading>
+            <p-scrollPanel *ngIf="!cartDetailsNull && !loading" [style]="{ width: '100%', height: '400px' }">
                 <p-dataView #dv [value]="cartDetails">
                     <ng-template pTemplate="list" let-products>
                         <div class="grid grid-nogutter">

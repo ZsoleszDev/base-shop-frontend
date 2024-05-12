@@ -7,7 +7,7 @@
          [showCurrentPageReport]="true"
          [rowsPerPageOptions]="[10, 25, 50]"
          [paginator]="true"
-         currentPageReportTemplate="A jelenelgi oldalon lévő rendelések száma: {last} az összesen {totalRecords}-ből/ból"
+         currentPageReportTemplate="A jelenelgi oldalon lévő rendelések száma: {last}"
          [globalFilterFields]="['orderId', 'orderFullName', 'product.productName', 'orderContactNumber', 'orderAmount', 'orderShippingMethod', 'orderStatus', 'payment']">
     <ng-template pTemplate="caption">
         <div class="flex">

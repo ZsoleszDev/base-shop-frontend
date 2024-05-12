@@ -16,21 +16,24 @@ export class CartComponent implements OnInit{
 
     cartDetails = [];
     cartDetailsNull = false;
+    loading = false;
 
     constructor(private itemsrv: ProductsListService,private laysrv: LayoutService, private router: Router, private toast: BaseToastService) {
     }
 
     getCartDetails(){
+        this.loading = true;
         this.itemsrv.getCartDetails()
             .subscribe({
             next: (resp: any) =>{
                 this.cartDetails = resp;
+                this.loading = false;
                 if(resp.length == 0){
                     this.cartDetailsNull = true;
                 }
             },
             error: (err) => {
-
+                this.loading = false;
             }
         })
     }

@@ -1,126 +1,6 @@
 <p-card>
-    <div class="grid" >
-        <div class="col-12 lg:col-6" >
-            <div class="grid" >
-                <div class="col mb-2 text-center" >
-                    <label class="text-2xl">Kérem adja meg adatait <i class="pi pi-user-edit ml-2 text-2xl" ></i></label>
-                </div>
-            </div>
-            <form #orderForm="ngForm" (ngSubmit)="placeOrder(orderForm)" >
-                <div class="grid" >
-                    <div class="col" >
-                        <div class="flex flex-column gap-2">
-                            <label for="lastname">Vezetéknév</label>
-                            <h5 class="-mt-1 primary-text" id="lastname" >{{user.getUD_userLastName()}}</h5>
-                        </div>
-                    </div>
-                    <div class="col" >
-                        <div class="flex flex-column gap-2">
-                            <label for="firstname">Keresztnév</label>
-                            <h5 class="-mt-1 primary-text" id="firstname" >{{user.getUD_userFirstName()}}</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid" >
-                    <div class="col" >
-                        <div class="flex flex-column gap-2">
-                            <label for="postalcode">Irányítószám</label>
-                            <p-inputNumber
-                                placeholder="1022"
-                                [maxlength]="4"
-                                [minlength]="4"
-                                id="postalcode"
-                                [class]="postalBad?'ng-invalid ng-dirty':''"
-                                name="iranyitoszam"
-                                [useGrouping]="false"
-                                inputId="integeronly"
-                                [(ngModel)]="postalCode" />
-                        </div>
-                    </div>
-                    <div class="col" >
-                        <div class="flex flex-column gap-2">
-                            <label for="city">Város</label>
-                            <input
-                                placeholder="Budapest"
-                                pInputText
-                                [class]="cityBad?'ng-invalid ng-dirty':''"
-                                id="city"
-                                name="varos"
-                                [(ngModel)]="city"
-                            />
-                        </div>
-                    </div>
-                    <div class="col-12 lg:col" >
-                        <div class="flex flex-column gap-2">
-                            <label for="publicarea">Közterület neve és típusa</label>
-                            <input
-                                placeholder="Pelda utca 16."
-                                pInputText
-                                [class]="publicBad?'ng-invalid ng-dirty':''"
-                                id="publicarea"
-                                name="kozt"
-                                [(ngModel)]="publicAreaName"
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div class="grid" >
-                    <div class="col" >
-                        <div class="flex flex-column gap-2">
-                            <label for="contactn">Telefonszám</label>
-                            <input
-                                placeholder="06701234567"
-                                pInputText
-                                id="contactn"
-                                [class]="phoneBad?'ng-invalid ng-dirty':''"
-                                [maxlength]="11"
-                                name="contactNumber"
-                                [(ngModel)]="orderDetails.contactNumber"
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div class="grid" >
-                    <div class="col" >
-                        <div class="flex flex-column gap-2">
-                            <label for="szallmod">Szállítási mód</label>
-                            <div class="flex align-items-center">
-                                <p-radioButton
-                                    name="hazhozszallítas"
-                                    value="Házhozszállítás"
-                                    [(ngModel)]="orderDetails.orderShippingMethod"
-                                    id="szallmod"
-                                    inputId="ingredient1" />
-                                <label for="szallmod" class="ml-2">
-                                    Házhozszállítás
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col" >
-                        <div class="flex flex-column gap-2">
-                            <label for="szallmod">Fizetési mód</label>
-                            <div class="flex align-items-center">
-                                <p-radioButton
-                                    name="utanvet"
-                                    value="Utánvét (fizetés a futárnál)"
-                                    [(ngModel)]="orderDetails.payment"
-                                    id="utanvet"
-                                    inputId="ingredient2" />
-                                <label for="szallmod" class="ml-2">
-                                    Utánvét (fizetés a futárnál)
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid" >
-                    <div class="col text-right" >
-                        <p-button icon="pi pi-angle-right" iconPos="right" [disabled]="orderButtonDis" label="Megrendelés" type="submit" [rounded]="true" ></p-button>
-                    </div>
-                </div>
-            </form>
-        </div>
+    <base-loading *ngIf="loading" loadingText="Adatok elküldése folyamatban..." ></base-loading>
+    <div *ngIf="!loading" class="grid" >
         <div class="col-12 lg:col-6" >
             <div class="grid" >
                 <div class="col text-center" >
@@ -217,6 +97,127 @@
                     <label class="text-2xl">{{ getCalculatedGrandTotal() }} Ft</label>
                 </div>
             </div>
+        </div>
+        <div class="col-12 lg:col-6" >
+            <div class="grid" >
+                <div class="col mb-2 text-center" >
+                    <label class="text-2xl">Kérem adja meg adatait <i class="pi pi-user-edit ml-2 text-2xl" ></i></label>
+                </div>
+            </div>
+            <form #orderForm="ngForm" (ngSubmit)="placeOrder(orderForm)" >
+                <div class="grid" >
+                    <div class="col" >
+                        <div class="flex flex-column gap-2">
+                            <label for="lastname">Vezetéknév</label>
+                            <h5 class="-mt-1 primary-text" id="lastname" >{{user.getUD_userLastName()}}</h5>
+                        </div>
+                    </div>
+                    <div class="col" >
+                        <div class="flex flex-column gap-2">
+                            <label for="firstname">Keresztnév</label>
+                            <h5 class="-mt-1 primary-text" id="firstname" >{{user.getUD_userFirstName()}}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid" >
+                    <div class="col" >
+                        <div class="flex flex-column gap-2">
+                            <label for="postalcode">Irányítószám</label>
+                            <p-inputNumber
+                                placeholder="1022"
+                                [maxlength]="4"
+                                [minlength]="4"
+                                id="postalcode"
+                                [class]="postalBad?'ng-invalid ng-dirty':''"
+                                name="iranyitoszam"
+                                [useGrouping]="false"
+                                inputId="integeronly"
+                                [(ngModel)]="postalCode" />
+                        </div>
+                    </div>
+                    <div class="col" >
+                        <div class="flex flex-column gap-2">
+                            <label for="city">Város</label>
+                            <input
+                                placeholder="Budapest"
+                                pInputText
+                                [class]="cityBad?'ng-invalid ng-dirty':''"
+                                id="city"
+                                name="varos"
+                                [(ngModel)]="city"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-12 lg:col" >
+                        <div class="flex flex-column gap-2">
+                            <label for="publicarea">Közterület neve és típusa</label>
+                            <input
+                                placeholder="Pelda utca 16."
+                                pInputText
+                                [class]="publicBad?'ng-invalid ng-dirty':''"
+                                id="publicarea"
+                                name="kozt"
+                                [(ngModel)]="publicAreaName"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="grid" >
+                    <div class="col" >
+                        <div class="flex flex-column gap-2">
+                            <label for="contactn">Telefonszám</label>
+                            <input
+                                placeholder="06701234567"
+                                pInputText
+                                id="contactn"
+                                [class]="phoneBad?'ng-invalid ng-dirty':''"
+                                [maxlength]="11"
+                                name="contactNumber"
+                                [(ngModel)]="orderDetails.contactNumber"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="grid" >
+                    <div class="col-12 lg:col-6" >
+                        <div class="flex flex-column gap-2">
+                            <label for="szallmod">Szállítási mód</label>
+                            <div class="flex align-items-center">
+                                <p-radioButton
+                                    name="hazhozszallítas"
+                                    value="Házhozszállítás"
+                                    [(ngModel)]="orderDetails.orderShippingMethod"
+                                    id="szallmod"
+                                    inputId="ingredient1" />
+                                <label for="szallmod" class="ml-2">
+                                    Házhozszállítás
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 lg:col-6" >
+                        <div class="flex flex-column gap-2">
+                            <label for="szallmod">Fizetési mód</label>
+                            <div class="flex align-items-center">
+                                <p-radioButton
+                                    name="utanvet"
+                                    value="Utánvét (fizetés a futárnál)"
+                                    [(ngModel)]="orderDetails.payment"
+                                    id="utanvet"
+                                    inputId="ingredient2" />
+                                <label for="szallmod" class="ml-2">
+                                    Utánvét (fizetés a futárnál)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid" >
+                    <div class="col mt-6 text-center" >
+                        <p-button icon="pi pi-angle-right" iconPos="right" [disabled]="orderButtonDis" label="Megrendelés" type="submit" [rounded]="true" ></p-button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </p-card>

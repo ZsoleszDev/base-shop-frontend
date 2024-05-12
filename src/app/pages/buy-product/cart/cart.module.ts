@@ -10,6 +10,7 @@ import {FormsModule} from "@angular/forms";
 import {CardModule} from "primeng/card";
 import {ScrollPanelModule} from "primeng/scrollpanel";
 import {ButtonModule} from "primeng/button";
+import {BaseLoadingModule} from "../../../additional-modules/base-loading/base-loading.module";
 
 
 
@@ -25,7 +26,8 @@ import {ButtonModule} from "primeng/button";
         FormsModule,
         CardModule,
         ScrollPanelModule,
-        ButtonModule
+        ButtonModule,
+        BaseLoadingModule
     ]
 })
 export class CartModule { }
