@@ -1,4 +1,4 @@
-<base-loading *ngIf="loading" loadingText="Telefonjaink betöltése..."></base-loading>
+<base-loading *ngIf="loading" [loadingText]="loadingText"></base-loading>
 <p-dataView #dv [value]="mobiles" [layout]="layout" *ngIf="!loading">
     <ng-template pTemplate="header">
         <div class="grid" >

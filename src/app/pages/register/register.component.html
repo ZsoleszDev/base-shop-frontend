@@ -1,6 +1,9 @@
 <img class="auth_bg" src="assets/layout/images/auth_wallpaper.svg">
 <div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
-    <div class="flex flex-column align-items-center justify-content-center" style="position: fixed;z-index: 2">
+    <div class="-mt-8" *ngIf="loading" >
+        <base-loading [loadingText]="loadingText" class="-mt-8"></base-loading>
+    </div>
+    <div *ngIf="!loading" class="flex flex-column align-items-center justify-content-center" style="position: fixed;z-index: 2">
         <img src="assets/layout/images/header_logo.png" alt="BASE logo" class="mb-5 w-6rem flex-shrink-0">
         <label class="mb-2" >Üdv! Regisztráljon a folytatáshoz</label>
         <div class="w-full surface-card py-5 px-4 sm:px-6" style="border-radius:30px;">

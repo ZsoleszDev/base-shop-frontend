@@ -10,6 +10,7 @@ import {InputTextModule} from "primeng/inputtext";
 import {RegisterRoutingModule} from "./register-routing.module";
 import {NgxCaptchaModule} from "ngx-captcha";
 import {InputSwitchModule} from "primeng/inputswitch";
+import {BaseLoadingModule} from "../../additional-modules/base-loading/base-loading.module";
 
 
 
@@ -26,7 +27,8 @@ import {InputSwitchModule} from "primeng/inputswitch";
         InputTextModule,
         ReactiveFormsModule,
         NgxCaptchaModule,
-        InputSwitchModule
+        InputSwitchModule,
+        BaseLoadingModule
     ]
 })
 export class RegisterModule { }

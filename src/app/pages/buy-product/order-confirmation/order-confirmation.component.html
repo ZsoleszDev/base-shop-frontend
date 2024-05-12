@@ -1,17 +1,8 @@
-<div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen -mt-8 overflow-hidden">
-    <div class="flex flex-column align-items-center justify-content-center -mt-8">
-        <img src="assets/layout/images/header_logo.png" alt="Base Logo" class="mb-5 -mt-8 w-6rem flex-shrink-0">
-        <div style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, rgba(59, 163, 73, 0.4) 10%, rgba(59, 163, 73, 0) 30%);">
-            <div class="w-full surface-card py-8 px-5 sm:px-8 flex flex-column align-items-center" style="border-radius:53px">
-                <div class="grid flex flex-column align-items-center">
-                    <div class="flex justify-content-center align-items-center bg-green-500 border-circle" style="width:3.2rem; height:3.2rem;">
-                        <i class="text-50 pi pi-fw pi-check text-2xl"></i>
-                    </div>
-                    <h1 class="text-900 font-bold text-4xl lg:text-5xl mb-2">Köszönjük, hogy megtisztelt minket a rendelésével</h1>
-                    <span class="text-600 mb-5">Sikeresen megkaptuk a rendelést és most feldolgozzuk, rendeléseit a "Fiókom" menüpont alatt tekintheti meg</span>
-                    <button pButton pRipple icon="pi pi-arrow-left" label="Vissza a főoldalra" class="p-button-text" [routerLink]="['/']"></button>
-                </div>
-            </div>
-        </div>
+<div class="surface-section py-8 md:px-6 lg:px-8">
+    <div class="text-700 text-center">
+        <div class="text-900 font-bold text-5xl mb-3">Köszönjük, hogy megtisztelt minket a rendelésével</div>
+        <div class="text-700 text-2xl mb-5">Sikeresen megkaptuk a rendelést és most feldolgozzuk, rendeléseit a "Fiókom" menüpont alatt tekintheti meg</div>
+        <div class="text-blue-600 font-bold mb-3">Remélem hamarosan látjuk még egymást!</div>
+        <button pButton pRipple label="Vissza a főoldalra"  icon="pi pi-arrow-left" routerLink="/" class="font-bold px-5 py-3 p-button-raised p-button-rounded p-button-info white-space-nowrap"></button>
     </div>
 </div>

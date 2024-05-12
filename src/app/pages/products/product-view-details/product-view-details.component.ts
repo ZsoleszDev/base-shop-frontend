@@ -44,7 +44,6 @@ export class ProductViewDetailsComponent implements OnInit{
             this.disableOpinion = true;
         }
         this.opisrv.productName = this.product.productName;
-        this.colors = JSON.parse(this.product.productColors);
         this.getCategoryProducts();
         this.getOpinions();
     }
@@ -55,7 +54,10 @@ export class ProductViewDetailsComponent implements OnInit{
             .subscribe({
                 // @ts-ignore
                 next: (resp: OpinionDetails[]) => {
-                    this.opinions = resp;
+                    if (resp.length == 0){
+
+                    }else{
+                        this.opinions = resp;
                         for (var i = 0; i < resp.length; i++){
                             if (resp[i].userUserName == this.user.getUD_userName()){
                                 this.disableOpinion = true;
@@ -63,7 +65,8 @@ export class ProductViewDetailsComponent implements OnInit{
                             allStar = allStar + resp[i].value;
                             this.dbStar++;
                         }
-                    this.opinionAllStar = allStar / this.dbStar;
+                        this.opinionAllStar = allStar / this.dbStar;
+                    }
                     },
                     error : (error: HttpErrorResponse) => {
                         console.log(error);

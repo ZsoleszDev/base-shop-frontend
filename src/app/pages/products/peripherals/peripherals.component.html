@@ -1,4 +1,4 @@
-<base-loading *ngIf="loading" loadingText="Perifériáink betöltése..."></base-loading>
+<base-loading *ngIf="loading" [loadingText]="loadingText"></base-loading>
 <p-dataView #dv *ngIf="!loading" [value]="peripherals" [layout]="layout">
     <ng-template pTemplate="header">
         <div class="grid" >

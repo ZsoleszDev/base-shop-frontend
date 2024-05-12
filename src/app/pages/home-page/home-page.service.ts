@@ -24,7 +24,7 @@ export class HomePageService {
                     next: (resp: ProductDetails[]) => {
                         this.products = [];
                         resp.reverse();
-                        if (resp.length == 3){
+                        if (resp.length >= 3){
                             for (var i = 0; i < 3; i++){
                                 this.products.push(resp[i]);
                             }

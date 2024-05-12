@@ -17,6 +17,7 @@ export class PeripheralsComponent implements OnInit{
     peripherals: ProductDetails[] = [];
     founds = 0;
     loading = true;
+    loadingText = 'Perifériáink betöltése...';
     constructor(private itemsrv: ProductsListService,private imagepsrv: ImageProcessingService, public prodpagesrv: ProductsPageService, public ressrv: ResolutionService) {
 
     }
@@ -35,14 +36,17 @@ export class PeripheralsComponent implements OnInit{
             )
             .subscribe({
                     next: (resp: ProductDetails[]) => {
-                        for (var i = 0; i < resp.length; i++){
-                            if (resp[i].productCategory === 'Perifériák'){
-                                this.peripherals.push(resp[i]);
-                                this.founds++;
+                        if (resp.length == 0){
+                            this.loadingText = 'Sajnos nincs perifériánk a raktáron, kérem nézzen vissza később';
+                        }else{
+                            for (var i = 0; i < resp.length; i++){
+                                if (resp[i].productCategory === 'Perifériák'){
+                                    this.peripherals.push(resp[i]);
+                                    this.founds++;
+                                }
+                                this.loading = false;
                             }
-                            this.loading = false;
                         }
-
                     },
                     error : (error: HttpErrorResponse) => {
                         console.log(error);

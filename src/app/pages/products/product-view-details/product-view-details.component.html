@@ -152,13 +152,13 @@
                 <div class="grid" >
                     <h3>Leírás</h3><i class="pi pi-pencil ml-2"></i>
                 </div>
-                <div [innerHTML]="product.productDescription"></div>
+                <div class="desc" [innerHTML]="product.productDescription"></div>
             </div>
         </div>
     </div>
 </div>
 
 
-<p-dialog header="Véleményem a termékről" [(visible)]="opisrv.opinionVis" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+<p-dialog header="Véleményem a termékről" [(visible)]="opisrv.opinionVis" [modal]="true" [style]="{ width: '100%' }" [draggable]="false" [resizable]="false">
     <add-opinions></add-opinions>
 </p-dialog>

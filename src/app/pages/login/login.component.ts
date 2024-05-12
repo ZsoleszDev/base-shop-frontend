@@ -19,6 +19,9 @@ export class LoginComponent {
         this.logoutWhenNavigate();
     }
 
+    loading = false;
+    loadingText = 'Felhasználó ellenőrzése az adatbázisban...';
+
     logoutWhenNavigate(){
         if (localStorage.getItem('jwtToken') != undefined || sessionStorage.getItem('jwtToken') != undefined){
             this.toast.success('Sikeres kijelentkezés','');
@@ -40,8 +43,10 @@ export class LoginComponent {
             this.emailCheck = true;
             this.passwordCheck = false;
         }
+        this.loading = true;
         this.usrv.login(loginForm.value).subscribe({
             next: (response: any) => {
+                this.loadingText = 'Sikeres belépés!';
                 this.uAutsrv.workWithToken(response.jwtToken,loginForm.value.rememberme);
                 const role = this.uAutsrv.getRoles();
                 if (loginForm.value.rememberme){
@@ -55,9 +60,11 @@ export class LoginComponent {
             },
             error: (error) => {
                 if (error.status === 401 || error.status === 403) {
-                    this.toast.error('Hibás bejelentkezés','Nem létezik ilyen felhasználó',10000)
+                    this.toast.error('Hibás bejelentkezés','Nem létezik ilyen felhasználó',10000);
+                    this.loading = false;
                 }else{
-                    this.toast.warn('Kezeletlen hiba történt','Kérjük ellenőrizze le adatait!',10000)
+                    this.toast.warn('Kezeletlen hiba történt','Kérjük ellenőrizze le adatait!',10000);
+                    this.loading = false;
                 }
             }
         }

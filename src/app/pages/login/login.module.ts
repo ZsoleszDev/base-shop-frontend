@@ -9,6 +9,7 @@ import {RippleModule} from "primeng/ripple";
 import {RouterLink} from "@angular/router";
 import {InputTextModule} from "primeng/inputtext";
 import {LoginRoutingModule} from "./login-routing.module";
+import {BaseLoadingModule} from "../../additional-modules/base-loading/base-loading.module";
 
 
 
@@ -23,7 +24,8 @@ import {LoginRoutingModule} from "./login-routing.module";
         ButtonModule,
         RippleModule,
         RouterLink,
-        InputTextModule
+        InputTextModule,
+        BaseLoadingModule
     ]
 })
 export class LoginModule { }

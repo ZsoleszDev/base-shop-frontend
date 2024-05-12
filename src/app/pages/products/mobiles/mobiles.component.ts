@@ -18,6 +18,7 @@ export class MobilesComponent implements OnInit{
     mobiles: ProductDetails[] = [];
     founds = 0;
     loading = true;
+    loadingText = 'Telefonjaink betöltése...';
     constructor(private itemsrv: ProductsListService,private imagepsrv: ImageProcessingService, public prodpagesrv: ProductsPageService, public ressrv: ResolutionService) {
     }
 
@@ -36,14 +37,18 @@ export class MobilesComponent implements OnInit{
             )
             .subscribe({
                     next: (resp: ProductDetails[]) => {
-                        //this.mobiles = resp;
-                        for (var i = 0; i < resp.length; i++){
-                            if (resp[i].productCategory === 'Telefonok'){
-                                this.mobiles.push(resp[i]);
-                                this.founds++;
+                        if (resp.length == 0){
+                            this.loadingText = 'Sajnos nincs telefonunk a raktáron, kérem nézzen vissza később :(';
+                        }else{
+                            for (var i = 0; i < resp.length; i++){
+                                if (resp[i].productCategory === 'Telefonok'){
+                                    this.mobiles.push(resp[i]);
+                                    this.founds++;
+                                }
+                                this.loading = false;
                             }
-                            this.loading = false;
                         }
+
 
                     },
                     error : (error: HttpErrorResponse) => {

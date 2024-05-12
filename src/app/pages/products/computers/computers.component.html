@@ -1,4 +1,4 @@
-<base-loading *ngIf="loading" loadingText="Számítógépeink betöltése..."></base-loading>
+<base-loading *ngIf="loading" [loadingText]="loadingText"></base-loading>
 <p-dataView *ngIf="!loading" #dv [value]="computers" [layout]="layout">
     <ng-template pTemplate="header">
         <div class="grid" >

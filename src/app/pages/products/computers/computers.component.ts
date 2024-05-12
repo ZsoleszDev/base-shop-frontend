@@ -17,6 +17,7 @@ export class ComputersComponent implements OnInit{
     founds = 0;
     computers: ProductDetails[] = [];
     loading = true;
+    loadingText = 'Számítógépeink betöltése...';
     constructor(private itemsrv: ProductsListService,private imagepsrv: ImageProcessingService, public prodpagesrv: ProductsPageService, public ressrv: ResolutionService) {
     }
 
@@ -35,12 +36,16 @@ export class ComputersComponent implements OnInit{
             )
             .subscribe({
                     next: (resp: ProductDetails[]) => {
-                        for (var i = 0; i < resp.length; i++){
-                            if (resp[i].productCategory === 'Számítógépek'){
-                                this.computers.push(resp[i]);
-                                this.founds++;
+                        if (resp.length == 0){
+                            this.loadingText = 'Sajnos nincs számítógépünk a raktáron, kérem nézzen vissza később :(';
+                        }else{
+                            for (var i = 0; i < resp.length; i++){
+                                if (resp[i].productCategory === 'Számítógépek'){
+                                    this.computers.push(resp[i]);
+                                    this.founds++;
+                                }
+                                this.loading = false;
                             }
-                            this.loading = false;
                         }
                     },
                     error : (error: HttpErrorResponse) => {

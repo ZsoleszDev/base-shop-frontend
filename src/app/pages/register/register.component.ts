@@ -22,6 +22,9 @@ export class RegisterComponent {
     userPassword2Check = true;
     checkCheck = true;
 
+    loading = false;
+    loadingText = 'Adatok ellenőrzése...';
+
     constructor(public usrv: UserService,
                 private router: Router,
                 public regsrv: UserRegistrationService, private toast: BaseToastService) {}
@@ -37,13 +40,16 @@ export class RegisterComponent {
         let recaptha = registerForm.value.recaptha;
         this.regcheck(userFirstName,userLastName,userName,userPassword,userPassword2,check,recaptha);
         if (this.goodform){
+            this.loading = true;
             this.usrv.register(registerForm.value).subscribe({
                     next: (response: any) => {
                         if (response.role == null){
                             this.toast.error('Hiba!','Ezzel az E-mail címmel már regisztráltak!');
+                            this.loading = false;
                         }else{
                             this.toast.success('Siker!','Sikeres regisztráció, jó vásárlást kedves '+ userFirstName);
                             this.router.navigate(['/login']);
+                            this.loading = false;
                         }
                     },
                     error: (error) => {

@@ -27,6 +27,7 @@ import {RatingModule} from "primeng/rating";
 import {UserOrdersComponent} from "./user-orders/user-orders.component";
 import {DeferModule} from "primeng/defer";
 import {DataViewModule} from "primeng/dataview";
+import {BaseLoadingModule} from "../../additional-modules/base-loading/base-loading.module";
 
 
 
@@ -53,7 +54,8 @@ import {DataViewModule} from "primeng/dataview";
         EditorModule,
         RatingModule,
         DeferModule,
-        DataViewModule
+        DataViewModule,
+        BaseLoadingModule
     ]
 })
 export class AdminModule { }

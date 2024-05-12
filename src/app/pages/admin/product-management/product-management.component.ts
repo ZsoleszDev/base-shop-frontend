@@ -21,7 +21,7 @@ export class ProductManagementComponent{
 
     selectedCategory?;
     uploadedFiles: any[] = [];
-
+    loading = false;
 
     desCount = 0;
 
@@ -46,6 +46,7 @@ export class ProductManagementComponent{
 
     addNewProd(){
         this.router.navigate(['/admin-dashboard']);
+        location.reload();
         this.prodsrv.hideForm = false;
     }
 
@@ -112,15 +113,18 @@ export class ProductManagementComponent{
             this.prodCatCheck = false;
         }
         else{
+            this.loading = true;
             this.allClear();
             this.prodsrv.addProduct(productFormData).subscribe({
                 next: (response: any) => {
+                    this.loading = false;
                     addProductForm.reset();
                     this.uploadedFiles = [];
                     this.toast.success('Siker!',this.prodsrv.newItem? 'Sikeresen feltöltötte a terméket.':'Sikeresen frissítetted a terméket.');
                     this.prodsrv.product.productImages = [];
                 },
             error: (error) => {
+                this.loading = false;
                 this.toast.error('Hiba történt!','Hiba történt a termék feltöltése közben.');
             }
             }
@@ -140,6 +144,8 @@ export class ProductManagementComponent{
         this.uploadedFiles = [];
         this.prodsrv.product.productImages = [];
         this.router.navigate(['/admin-dashboard']);
+        this.prodsrv.newItem  = true;
+        location.reload();
         this.toast.info('Adjon hozzá új terméket!','Mostmár tud új terméket hozzáadni a weboldalhoz');
     }
 
