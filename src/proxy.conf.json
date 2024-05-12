@@ -1,0 +1,6 @@
+{
+    "/api": {
+        "target": "https://base-shop-backend-fs0i.onrender.com",
+        "secure": false
+    }
+}

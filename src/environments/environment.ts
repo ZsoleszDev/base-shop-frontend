@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  path_of_api: 'http://localhost:9090',
+    path_of_api: 'https://base-shop-backend-fs0i.onrender.com',
     recaptha: '6LdhDc8pAAAAALeJuQV2vAIwIbCaV4S2cVO7jdnv',
 };
 
