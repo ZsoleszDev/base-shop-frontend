@@ -1,0 +1,222 @@
+<p-card>
+    <div class="grid" >
+        <div class="col-12 lg:col-6" >
+            <div class="grid" >
+                <div class="col mb-2 text-center" >
+                    <label class="text-2xl">Kérem adja meg adatait <i class="pi pi-user-edit ml-2 text-2xl" ></i></label>
+                </div>
+            </div>
+            <form #orderForm="ngForm" (ngSubmit)="placeOrder(orderForm)" >
+                <div class="grid" >
+                    <div class="col" >
+                        <div class="flex flex-column gap-2">
+                            <label for="lastname">Vezetéknév</label>
+                            <h5 class="-mt-1 primary-text" id="lastname" >{{user.getUD_userLastName()}}</h5>
+                        </div>
+                    </div>
+                    <div class="col" >
+                        <div class="flex flex-column gap-2">
+                            <label for="firstname">Keresztnév</label>
+                            <h5 class="-mt-1 primary-text" id="firstname" >{{user.getUD_userFirstName()}}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid" >
+                    <div class="col" >
+                        <div class="flex flex-column gap-2">
+                            <label for="postalcode">Irányítószám</label>
+                            <p-inputNumber
+                                placeholder="1022"
+                                [maxlength]="4"
+                                [minlength]="4"
+                                id="postalcode"
+                                [class]="postalBad?'ng-invalid ng-dirty':''"
+                                name="iranyitoszam"
+                                [useGrouping]="false"
+                                inputId="integeronly"
+                                [(ngModel)]="postalCode" />
+                        </div>
+                    </div>
+                    <div class="col" >
+                        <div class="flex flex-column gap-2">
+                            <label for="city">Város</label>
+                            <input
+                                placeholder="Budapest"
+                                pInputText
+                                [class]="cityBad?'ng-invalid ng-dirty':''"
+                                id="city"
+                                name="varos"
+                                [(ngModel)]="city"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-12 lg:col" >
+                        <div class="flex flex-column gap-2">
+                            <label for="publicarea">Közterület neve és típusa</label>
+                            <input
+                                placeholder="Pelda utca 16."
+                                pInputText
+                                [class]="publicBad?'ng-invalid ng-dirty':''"
+                                id="publicarea"
+                                name="kozt"
+                                [(ngModel)]="publicAreaName"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="grid" >
+                    <div class="col" >
+                        <div class="flex flex-column gap-2">
+                            <label for="contactn">Telefonszám</label>
+                            <input
+                                placeholder="06701234567"
+                                pInputText
+                                id="contactn"
+                                [class]="phoneBad?'ng-invalid ng-dirty':''"
+                                [maxlength]="11"
+                                name="contactNumber"
+                                [(ngModel)]="orderDetails.contactNumber"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="grid" >
+                    <div class="col" >
+                        <div class="flex flex-column gap-2">
+                            <label for="szallmod">Szállítási mód</label>
+                            <div class="flex align-items-center">
+                                <p-radioButton
+                                    name="hazhozszallítas"
+                                    value="Házhozszállítás"
+                                    [(ngModel)]="orderDetails.orderShippingMethod"
+                                    id="szallmod"
+                                    inputId="ingredient1" />
+                                <label for="szallmod" class="ml-2">
+                                    Házhozszállítás
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" >
+                        <div class="flex flex-column gap-2">
+                            <label for="szallmod">Fizetési mód</label>
+                            <div class="flex align-items-center">
+                                <p-radioButton
+                                    name="utanvet"
+                                    value="Utánvét (fizetés a futárnál)"
+                                    [(ngModel)]="orderDetails.payment"
+                                    id="utanvet"
+                                    inputId="ingredient2" />
+                                <label for="szallmod" class="ml-2">
+                                    Utánvét (fizetés a futárnál)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid" >
+                    <div class="col text-right" >
+                        <p-button icon="pi pi-angle-right" iconPos="right" [disabled]="orderButtonDis" label="Megrendelés" type="submit" [rounded]="true" ></p-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-12 lg:col-6" >
+            <div class="grid" >
+                <div class="col text-center" >
+                    <label class="text-2xl">Kosaram <i class="pi pi-shopping-cart ml-2 text-2xl" ></i></label>
+                </div>
+            </div>
+            <p-scrollPanel [style]="{ width: '100%', height: '30rem' }">
+                <div *ngIf="orderButtonDis">
+                    <div class="grid" >
+                        <div class="col mt-8 text-center">
+                            <h2>A kosara üres.</h2>
+                        </div>
+                    </div>
+                    <div class="grid" >
+                        <div class="col -mt-3 text-center">
+                            <label>Nézzen körül eladó tárgyaink között!</label>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="ressrv.innerWidth > 767">
+                    <p-dataView *ngIf="!orderButtonDis" #dv [value]="productDetails">
+                        <ng-template pTemplate="list" let-products>
+                            <div class="grid grid-nogutter">
+                                <div class="col-12" *ngFor="let item of products; let first = first; let i = index">
+                                    <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                                        <div class="md:w-10rem relative">
+                                            <img class="block xl:block mx-auto border-round w-full" [src]="item.productImages[0].url" [alt]="item.productName" />
+                                            <p-tag value="Raktáron" severity="success" class="absolute" [style.left.px]="4" [style.top.px]="4" />
+                                        </div>
+                                        <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4">
+                                            <div class="flex flex-row md:flex-column justify-content-between align-items-start gap-2">
+                                                <div>
+                                                    <span class="font-medium text-secondary text-sm">{{ item.productCategory}}</span>
+                                                    <div class="text-lg font-medium text-900 mt-2">{{ item.productName }} {{i}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="flex flex-column md:align-items-end gap-5">
+                                                <span class="text-xl font-semibold text-900">{{ getCalcTotal(item.productId,item.productDiscountedPrice) + ' Ft' }}</span>
+                                                <div class="flex flex-row-reverse md:flex-row gap-2">
+                                                    <select #quantity
+                                                            [ngModel]="getQuantityForProduct(item.productId)"
+                                                            (change)="onQuantityChanged(quantity.value,item.productId)">
+                                                        <option value="1" >1</option>
+                                                        <option value="2" >2</option>
+                                                        <option value="3" >3</option>
+                                                    </select> db
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </p-dataView>
+                </div>
+                <div *ngIf="ressrv.innerWidth <= 767" >
+                    <div class="grid" *ngFor="let item of productDetails; let i = index" >
+                        <div class="col-4 mt-3" >
+                            <img [src]="item.productImages[0].url" [alt]="item.productName" style="width: 120px">
+                        </div>
+                        <div class="col" >
+                            <div class="grid" >
+                                <div class="col text-right" >
+                                    <span class="font-medium text-secondary text-sm">{{ item.productCategory}}</span>
+                                    <div class="text-lg font-medium text-900">{{ item.productName }}</div>
+                                </div>
+                            </div>
+                            <div class="grid" >
+                                <div class="col text-right" >
+                                    <span class="text-xl font-semibold text-900">{{ getCalcTotal(item.productId,item.productDiscountedPrice) + ' Ft' }}</span>
+                                </div>
+                            </div>
+                            <div class="grid" >
+                                <div class="col text-right" >
+                                    <select #quantity
+                                            [ngModel]="getQuantityForProduct(item.productId)"
+                                            (change)="onQuantityChanged(quantity.value,item.productId)">
+                                        <option value="1" >1</option>
+                                        <option value="2" >2</option>
+                                        <option value="3" >3</option>
+                                    </select> db
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </p-scrollPanel>
+            <div class="grid" >
+                <div class="col-6 text-right" >
+                    <label class="text-2xl">Végösszeg:</label>
+                </div>
+                <div class="col-6 text-left" >
+                    <label class="text-2xl">{{ getCalculatedGrandTotal() }} Ft</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-card>

@@ -1,0 +1,24 @@
+<div *ngIf="desktop_images" class="text-center flex align-items-center justify-content-center" >
+    <p-galleria  [(value)]="desktop_pics" [showItemNavigators]="true" [showThumbnails]="false" [autoPlay]="true" [circular]="true" [showIndicators]="true" [showIndicatorsOnItem]="true" [responsiveOptions]="responsiveOptions"
+                [containerStyle]="{ 'max-width': '1600px' }">
+        <ng-template pTemplate="item" let-item>
+            <img [src]="item.itemImageSrc" style="width: 100%; display: block;" [alt]="item.alt"/>
+        </ng-template>
+        <ng-template pTemplate="thumbnail" let-item>
+            <div class="grid grid-nogutter justify-content-center">
+                <img [src]="item.thumbnailImageSrc" style="display: block;" [alt]="item.alt"/>
+            </div>
+        </ng-template>
+    </p-galleria>
+</div>
+<p-galleria *ngIf="!desktop_images" [(value)]="mobile_pics" [showItemNavigators]="false" [showThumbnails]="false" [autoPlay]="true" [circular]="true" [showIndicators]="true" [showIndicatorsOnItem]="true" [responsiveOptions]="responsiveOptions"
+             [containerStyle]="{ 'width': '100%' }">
+    <ng-template pTemplate="item" let-item>
+        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" [alt]="item.alt"/>
+    </ng-template>
+    <ng-template pTemplate="thumbnail" let-item>
+        <div class="grid grid-nogutter justify-content-center">
+            <img [src]="item.thumbnailImageSrc" style="display: block;" [alt]="item.alt"/>
+        </div>
+    </ng-template>
+</p-galleria>

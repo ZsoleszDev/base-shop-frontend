@@ -1,0 +1,21 @@
+@import url('https://fonts.cdnfonts.com/css/uchiyama');
+
+// Primeng komponensek felülírása
+@import url('./assets/layout/styles/override_primeng/table.scss');
+
+.base_font{
+    font-family: 'Uchiyama', sans-serif;
+}
+
+.old_price{
+    text-decoration: line-through;
+}
+
+.primary-text{
+    color: var(--primary-color);
+}
+
+.footer{
+    position: relative;
+    bottom: -200px;
+}

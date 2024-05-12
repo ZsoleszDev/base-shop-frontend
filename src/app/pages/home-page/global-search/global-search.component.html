@@ -1,0 +1,15 @@
+<div class="grid" >
+    <div class="col text-center" >
+        <p-iconField iconPosition="left">
+            <p-autoComplete
+                [(ngModel)]="selectedCountry"
+                [suggestions]="filteredCountries"
+                emptyMessage="Nincs találat"
+                (completeMethod)="filterCountry($event)" class="p-inputtext-lg"
+                field="productName" (onSelect)="clickOpponent($event)" />
+            <p-inputIcon styleClass="pi pi-search text-xl ml-2" />
+        </p-iconField>
+
+    </div>
+</div>
+

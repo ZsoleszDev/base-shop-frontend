@@ -1,0 +1,11 @@
+<div *ngIf="ressrv.innerWidth > ressrv.minused">
+    <base-toast></base-toast>
+    <router-outlet></router-outlet>
+</div>
+<div *ngIf="ressrv.innerWidth <= ressrv.minused" class="mt-8">
+    <div class="grid" >
+        <div class="col flex align-items-center justify-content-center text-center mt-8" >
+            <h1>Ekkora felbontásban nem jeleníthető meg a weboldal kérem váltson készüléket!</h1>
+        </div>
+    </div>
+</div>

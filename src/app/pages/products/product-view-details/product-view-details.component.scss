@@ -1,0 +1,51 @@
+.pictures_gall{
+    margin-left: calc(50% - 320px);
+}
+
+.item_img{
+    object-fit: cover;
+    object-position: center;
+    height: 443px;
+    width: 470px;
+}
+
+@media only screen and (max-width: 568px) {
+    .item_img{
+        object-fit: cover;
+        object-position: center;
+        height: 200px;
+        width: 200px;
+    }
+}
+
+.card_model{
+    ng::ng-deep .p-card .p-card-body {
+        padding: 0 !important;
+    }
+}
+
+
+
+.base_items_linear{
+    object-fit: cover;
+    object-position: center;
+    height: 130px;
+    width: 130px;
+}
+
+.h-36rem{
+    height: 36rem;
+}
+
+.ad_image{
+    box-shadow: 20px 20px 20px 20px rgba(0, 0, 0, 0.4);
+    border-radius: 30%;
+}
+
+.rocket_2{
+    margin-left: 8rem;
+}
+
+.rocket_3{
+    margin-left: 15rem;
+}

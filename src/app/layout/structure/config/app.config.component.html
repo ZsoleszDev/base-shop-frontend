@@ -1,0 +1,31 @@
+<!-- TODO kosár hozzáadáskor ez felvillan és megjeleníti a kosár tartalmát -->
+<p-sidebar [(visible)]="visible" position="right" [transitionOptions]="'.3s cubic-bezier(0, 0, 0.2, 1)'" styleClass="layout-config-sidebar w-20rem">
+    A kosár üres
+</p-sidebar>
+
+<p-sidebar [(visible)]="layoutService.showUserSidebar" position="right" [transitionOptions]="'.3s cubic-bezier(0, 0, 0.2, 1)'" styleClass="layout-config-sidebar w-40rem" [style]="{width: '350px'}">
+    <ng-template pTemplate="header">
+
+        <label style="font-family: var(--font-family);font-size: 22px;font-weight: bold; margin-right: 5px;">Üdv, {{user.getUD_userFirstName()}}!</label>
+        <p-tag  [severity]="usrv.roleMatch(['Admin'])? 'danger' : 'primary'" [value]="usrv.roleMatch(['Admin'])? 'Admin' : 'Vásárló'"></p-tag>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <p-button *ngIf="!isLoggedIn()" (onClick)="loginPage()" [style]="{position: 'absolute',bottom: '28px',left: '36px'}" icon="pi pi-sign-in" label="Bejelentkezés" styleClass="p-button-rounded p-button-success"></p-button>
+        <p-button *ngIf="!isLoggedIn()" (onClick)="registerPage()" icon="pi pi-user-plus" [style]="{position: 'absolute',left: '238px',bottom: '27px'}" styleClass="p-button-rounded p-button-primary"></p-button>
+        <p-button *ngIf="isLoggedIn()" (onClick)="logout()" icon="pi pi-sign-out" [style]="{height: '35px', marginLeft: '48px'}" label="Kijelentkezés" [styleClass]="usrv.roleMatch(['Admin'])? 'p-button-rounded p-button-danger' : 'p-button-rounded p-button-primary'"></p-button>
+
+    </ng-template>
+
+    <p-button *ngIf="usrv.roleMatch(['Admin']) && isLoggedIn()"
+              [style]="{width: '277px' ,height: '30px', marginTop: '10px', marginBottom: '30px'}"
+              pRipple routerLink="/admin-dashboard"
+              label="Admin irányítópult"
+              icon="pi pi-compass"
+              styleClass="p-button-raised p-button-info"></p-button>
+    <p-button *ngIf="usrv.roleMatch(['User'])  && isLoggedIn()"
+              [style]="{width: '277px' ,height: '30px', marginTop: '10px', marginBottom: '30px'}"
+              pRipple routerLink="/user-details"
+              label="Fiókom"
+              icon="pi pi-user"
+              styleClass="p-button-raised p-button-warning"></p-button>
+</p-sidebar>

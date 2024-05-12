@@ -1,0 +1,49 @@
+<img class="auth_bg" src="assets/layout/images/auth_wallpaper.svg">
+<div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+    <div class="flex flex-column align-items-center justify-content-center" style="position: fixed;z-index: 2">
+        <img src="assets/layout/images/header_logo.png" alt="BASE logo" class="mb-5 w-6rem flex-shrink-0">
+        <label class="mb-2" >Üdv! Regisztráljon a folytatáshoz</label>
+        <div class="w-full surface-card py-5 px-4 sm:px-6" style="border-radius:30px;">
+            <div>
+                <form #authform="ngForm" (ngSubmit)="registerForm(authform)">
+                    <label for="lastname" class="block text-900 text-s font-medium mb-1">Vezetéknév*</label>
+                    <input ngModel id="lastname" name="userLastName" type="text" pInputText [class]="userLastNameCheck?'w-full md:w-26rem mb-1':'w-full md:w-26rem mb-1 ng-invalid ng-dirty'">
+                    <label for="firstname" class="block text-900 text-s font-medium mb-1">Keresztnév*</label>
+                    <input ngModel id="firstname" name="userFirstName" type="text" pInputText [class]="userFirstNameCheck?'w-full md:w-26rem mb-1':'w-full md:w-26rem mb-1 ng-invalid ng-dirty'">
+                    <label for="email" class="block text-900 text-s font-medium mb-1">Email cím*</label>
+                    <input ngModel id="email" type="text" name="userName" pInputText [class]="userNameCheck?'w-full md:w-26rem mb-1':'w-full md:w-26rem mb-1 ng-invalid ng-dirty'">
+                    <label for="password1" class="block text-900 text-s font-medium mb-1">Jelszó*</label>
+                    <p-password ngModel id="password1" name="userPassword" [class]="userPasswordCheck?'':'ng-invalid ng-dirty'" [toggleMask]="true" [feedback]="true" styleClass="mb-1" inputStyleClass="w-full w-26rem"></p-password>
+                    <label for="password2" class="block text-900 text-s font-medium mb-1">Jelszó újra*</label>
+                    <p-password ngModel id="password2" name="userPassword2" [class]="userPassword2Check?'':'ng-invalid ng-dirty'" [toggleMask]="true" [feedback]="true" styleClass="mb-1" inputStyleClass="w-full w-26rem"></p-password>
+                    <div class="grid" >
+                        <div class="col text-left mt-2" >
+                                <p-inputSwitch  [class]="checkCheck?'':'ng-dirty ng-invalid'" ngModel name="check" ></p-inputSwitch>
+                        </div>
+                    </div>
+                    <div class="grid" >
+                        <div class="col text-center mb-4">
+                            <label>Elfogadom az <a href="https://www.baseshop.hu/tajekoztato/adatkezeles" target="_blank" >adatkezelési tájékoztatóban</a> foglaltakat</label>
+                        </div>
+                    </div>
+                    <div class="grid" >
+                        <div class="ml-6" >
+                            <ngx-recaptcha2 #captchaElem
+                                            [siteKey]="sitekey"
+                                            theme="dark"
+                                            [useGlobalDomain]="false"
+                                            ngModel name="recaptha">
+                            </ngx-recaptcha2>
+                        </div>
+                    </div>
+                    <div class="flex align-items-center justify-content-between mb-2 mt-4 gap-5">
+                        <button pButton pRipple label="Regisztráció" class="w-full p-1 text-xl" type="submit"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="grid mt-4" >
+            <p>Már van felhasználója? </p><p style="color: var(--primary-color);cursor: pointer" class="ml-2" [routerLink]="['/login']" > Jelentkezzen be!</p>
+        </div>
+    </div>
+</div>

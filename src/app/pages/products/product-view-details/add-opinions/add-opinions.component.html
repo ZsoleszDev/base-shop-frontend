@@ -1,0 +1,20 @@
+<form #opinionAddFormdata="ngForm" (ngSubmit)="AddproductForm(opinionAddFormdata)">
+    <div class="grid" >
+        <div class="col" >
+            <p-rating  name="value" [(ngModel)]="opisrv.opinion.value" [cancel]="false"></p-rating>
+        </div>
+    </div>
+    <div class="grid" >
+        <div class="col" >
+            <div class="flex flex-column gap-2">
+                <label for="velemenye">Véleménye a termékről</label>
+                <textarea rows="5" cols="30" id="velemenye" pInputTextarea name="opinion" [(ngModel)]="opisrv.opinion.opinion"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="grid" >
+        <div class="col text-center" >
+            <p-button label="Küldés" type="submit" icon="pi pi-check" iconPos="right"></p-button>
+        </div>
+    </div>
+</form>

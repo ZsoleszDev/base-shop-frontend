@@ -1,0 +1,95 @@
+<p-card *ngIf="prodsrv.hideForm">
+    <div class="grid" >
+        <div class="col">
+            <p-button icon="pi pi-refresh" (onClick)="editProd()" severity="info" label="Kiválasztott termék frissítése" styleClass="w-full" [rounded]="true"></p-button>
+        </div>
+        <div class="col">
+            <p-button icon="pi pi-plus" (onClick)="addNewProd()" label="Új Termék Hozzáadása" styleClass="w-full" [rounded]="true"></p-button>
+        </div>
+    </div>
+</p-card>
+<form *ngIf="!prodsrv.hideForm" #productAddFormdata="ngForm" (ngSubmit)="AddproductForm(productAddFormdata)">
+<div class="grid" >
+    <div class="col-12">
+        <p-card [header]="prodsrv.newItem? 'Új termék hozzáadása':'Meglévő termék frissítése'">
+                 <div class="flex flex-column gap-2">
+                    <label for="product_name">Termék neve</label>
+                    <input [(ngModel)]="prodsrv.product.productName" [class]="prodNameCheck?'':'ng-dirty ng-invalid'" name="productName" pInputText id="product_name" aria-describedby="product_name-help" />
+                </div>
+                <div class="grid" >
+                    <div class="col mt-2" >
+                        <label [class]="prodDesCheck?'':'text-red-500'" >Termék leírása</label>
+                        <p-editor [(ngModel)]="prodsrv.product.productDescription" (onTextChange)="countDesLetter($event)" name="productDescription" id="product-description" [style]="{ height: '320px', width: '100wv' }"></p-editor>
+                        <small [class]="prodDesCheck?'':'text-red-500'" >Minimum 100 karakter Maximum 1000 karakter</small>
+                    </div>
+                </div>
+
+                <div class="grid" >
+                    <div class="col-12 lg:col-4" >
+                        <div class="flex flex-column gap-2 mt-3">
+                            <label for="product_actual_price">Termék aktuális ára (Ft)</label>
+                            <div class="p-inputgroup">
+                                <p-inputNumber [class]="prodActCheck?'':'ng-dirty ng-invalid'" [(ngModel)]="prodsrv.product.productActualPrice" name="productActualPrice" id="product_actual_price" inputId="integeronly" ></p-inputNumber>
+                                <span class="p-inputgroup-addon">Ft</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 lg:col-4" >
+                        <div class="flex flex-column gap-2 mt-3">
+                            <label for="product_discounted_price">Termék kedvezményes ára (Ft)</label>
+                            <div class="p-inputgroup">
+                                <p-inputNumber [class]="prodDisCheck?'':'ng-dirty ng-invalid'" [(ngModel)]="prodsrv.product.productDiscountedPrice" name="productDiscountedPrice" id="product_discounted_price" inputId="integeronly" ></p-inputNumber>
+                                <span class="p-inputgroup-addon">Ft</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 lg:col-4 mt-3" >
+                        <div class="flex flex-column gap-2">
+                            <label for="product_category">Termék kategóriája</label>
+                            <p-dropdown [class]="prodCatCheck?'':'ng-dirty ng-invalid'" [options]="prod_catergories" (onChange)="category($event)" [(ngModel)]="selectedCategory" name="productCategory" optionLabel="name" [showClear]="true" id="product_category" placeholder="Válasszon kategóriát"></p-dropdown>
+                        </div>
+                   </div>
+                </div>
+            <div class="grid mt-4">
+                <div style="width:100%; text-align: center" >
+                    <h5>Termék képeinek feltöltése</h5>
+                    <input type="file" size="30000" value="select" #selectFile (change)="onUpload($event)">
+                </div>
+            </div>
+            <h5 *ngIf="prodsrv.product.productImages.length !== 0">Előnézet:</h5>
+            <div class="grid w-full" >
+                <div class="col mt-2" *ngIf="prodsrv.product.productImages.length === 0">
+                    <label [class]="prodImageCheck?'':'text-red-500'" >Nincs kép hozzárendelve a termékhez.</label>
+                </div>
+                <p-dataView #dv [value]="prodsrv.product.productImages">
+                    <ng-template pTemplate="list" let-products>
+                        <div class="grid grid-nogutter">
+                            <div class="col-12" *ngFor="let item of products; let first = first; let i = index">
+                                <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                                    <div class="md:w-10rem relative">
+                                        <img class="block xl:block mx-auto border-round w-full" [src]="item.url" [alt]="item.name" />
+                                    </div>
+                                    <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4">
+                                        <div class="flex flex-column md:align-items-end gap-5">
+                                            <div class="flex flex-row-reverse md:flex-row gap-2">
+                                                <p-button label="Kép törlése a felsorolásból" (onClick)="removeImages(i)" icon="pi pi-trash" severity="danger" size="large" [rounded]="true"></p-button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-dataView>
+            </div>
+            <div class="grid mt-4">
+                <div class="submit_upload_button" >
+                    <p-button type="submit" [rounded]="true" severity="success" [label]="prodsrv.newItem? 'Termék feltöltése':'Termék frissítése'" iconPos="right" [icon]="prodsrv.newItem? 'pi pi-plus':'pi pi-refresh'" ></p-button>
+                    <p-button iconPos="right" pTooltip="Bevitt adatok törlése" tooltipPosition="bottom" icon="pi pi-eraser" [rounded]="true" styleClass="ml-1" severity="warning" (onClick)="resetFormDatas(productAddFormdata)"  ></p-button>
+                    <p-button *ngIf="!prodsrv.newItem" iconPos="right" label="Új termék hozzáadása" icon="pi pi-plus" [rounded]="true" styleClass="ml-1" severity="info" (onClick)="backToNew(productAddFormdata)"  ></p-button>
+                </div>
+            </div>
+        </p-card>
+    </div>
+</div>
+</form>

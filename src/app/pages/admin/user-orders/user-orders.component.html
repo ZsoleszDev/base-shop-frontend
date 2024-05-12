@@ -1,0 +1,170 @@
+<p-table [value]="allOrder"
+         [tableStyle]="{ 'min-width': '50rem' }"
+         [loading]="loading"
+         #dt3
+         dataKey="id"
+         [rows]="10"
+         [showCurrentPageReport]="true"
+         [rowsPerPageOptions]="[10, 25, 50]"
+         [paginator]="true"
+         currentPageReportTemplate="A jelenelgi oldalon lévő rendelések száma: {last} az összesen {totalRecords}-ből/ból"
+         [globalFilterFields]="['orderId', 'orderFullName', 'product.productName', 'orderContactNumber', 'orderAmount', 'orderShippingMethod', 'orderStatus', 'payment']">
+    <ng-template pTemplate="caption">
+        <div class="flex">
+            <button pButton pTooltip="Szűrés törlése" tooltipPosition="bottom" class="p-button-outlined mr-2" icon="pi pi-filter-slash" (click)="clear(dt3)"></button>
+            <button pButton pTooltip="Táblázat frissítése" tooltipPosition="bottom" class="p-button-outlined" icon="pi pi-refresh" (click)="getAllOrderDetail()"></button>
+            <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt3.filterGlobal($event.target.value, 'contains')" placeholder="Keresés..." />
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="orderId">
+                <div class="flex align-items-center">
+                    Rendelés ID
+                    <p-sortIcon field="orderId"></p-sortIcon>
+                    <p-columnFilter type="text" field="orderId" display="menu"></p-columnFilter>
+                </div>
+            </th>
+            <th pSortableColumn="orderFullName">
+                <div class="flex align-items-center">
+                    Rendelő neve
+                    <p-sortIcon field="orderFullName"></p-sortIcon>
+                    <p-columnFilter type="text" field="orderFullName" display="menu"></p-columnFilter>
+                </div>
+            </th>
+            <th pSortableColumn="product.productName">
+                <div class="flex align-items-center">
+                    Termék neve
+                    <p-sortIcon field="product.productName"></p-sortIcon>
+                    <p-columnFilter type="text" field="product.productName" display="menu"></p-columnFilter>
+                </div>
+            </th>
+            <th pSortableColumn="orderAmount">
+                <div class="flex align-items-center">
+                    Rendelés összege
+                    <p-sortIcon field="orderAmount"></p-sortIcon>
+                    <p-columnFilter type="text" field="orderAmount" display="menu"></p-columnFilter>
+                </div>
+            </th>
+            <th pSortableColumn="orderStatus">
+                <div class="flex align-items-center">
+                    Rendelés állapota
+                    <p-sortIcon field="orderStatus"></p-sortIcon>
+                    <p-columnFilter type="text" field="orderStatus" display="menu"></p-columnFilter>
+                </div>
+            </th>
+            <th>Részletek</th>
+            <th>Kezelése</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-order>
+        <tr>
+            <td>{{ order.orderId }}</td>
+            <td>{{ order.orderFullName }}</td>
+            <td>{{ order.product.productName }}</td>
+            <td>{{ order.orderAmount }} Ft</td>
+            <td>{{ order.orderStatus }}</td>
+            <td><p-button (onClick)="showDetails(order.orderContactNumber,order.user.userName,order.orderShippingMethod,order.payment,order.quantity,order.orderFullOrder,order.orderId,order.orderFullName,order.product.productName,order.orderAmount,order.orderStatus)" icon="pi pi-copy" [rounded]="true" ></p-button></td>
+            <td><p-button severity="success" [disabled]="order.orderStatus == 'Kiszállítva'" (onClick)="confirmMarkAsDelivered(order.orderId,$event)" icon="pi pi-truck" [rounded]="true" ></p-button></td>
+            <p-confirmPopup />
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-dialog
+    [header]="orderFullName + ' rendelése'"
+    [modal]="true"
+    [(visible)]="detailsVis"
+    [style]="{ width: '50rem' }">
+    <div class="grid" >
+        <div class="col text-left" >
+            <label>Rendelés ID: </label>
+        </div>
+        <div class="col text-left" >
+            <label>{{ orderId }}</label>
+        </div>
+    </div>
+    <div class="grid" >
+        <div class="col text-left" >
+            <label>Rendelő neve: </label>
+        </div>
+        <div class="col text-left" >
+            <label>{{ orderFullName }}</label>
+        </div>
+    </div>
+    <div class="grid" >
+        <div class="col text-left" >
+            <label>Rendelő telefonszáma: </label>
+        </div>
+        <div class="col text-left" >
+            <label>{{ orderContactNumber }}</label>
+        </div>
+    </div>
+    <div class="grid" >
+        <div class="col text-left" >
+            <label>Rendelő e-mail címe: </label>
+        </div>
+        <div class="col text-left" >
+            <label>{{ email }}</label>
+        </div>
+    </div>
+    <div class="grid" >
+        <div class="col text-left" >
+            <label>Rendelő címe: </label>
+        </div>
+        <div class="col text-left" >
+            <label>{{ orderFullOrder }}</label>
+        </div>
+    </div>
+    <div class="grid" >
+        <div class="col text-left" >
+            <label>Rendelt termék: </label>
+        </div>
+        <div class="col text-left" >
+            <label>{{ productName }}</label>
+        </div>
+    </div>
+    <div class="grid" >
+        <div class="col text-left" >
+            <label>Rendelt termék mennyisége: </label>
+        </div>
+        <div class="col text-left" >
+            <label>{{ quantity }} db</label>
+        </div>
+    </div>
+    <div class="grid" >
+        <div class="col text-left" >
+            <label>Rendelés összege: </label>
+        </div>
+        <div class="col text-left" >
+            <label>{{ orderAmount }} Ft</label>
+        </div>
+    </div>
+    <div class="grid" >
+        <div class="col text-left" >
+            <label>Szállítási mód: </label>
+        </div>
+        <div class="col text-left" >
+            <label>{{ orderShippingMethod }}</label>
+        </div>
+    </div>
+    <div class="grid" >
+        <div class="col text-left" >
+            <label>Fizetési mód: </label>
+        </div>
+        <div class="col text-left" >
+            <label>{{ payment }}</label>
+        </div>
+    </div>
+    <div class="grid" >
+        <div class="col text-left" >
+            <label>Rendelés státusza: </label>
+        </div>
+        <div class="col text-left" >
+            <label>{{ orderStatus }}</label>
+        </div>
+    </div>
+</p-dialog>

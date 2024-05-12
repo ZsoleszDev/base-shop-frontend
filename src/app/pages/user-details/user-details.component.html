@@ -1,0 +1,74 @@
+<div class="grid" >
+    <div class="col text-center" >
+        <h1>Üdvözöljük, {{firstname}}!</h1>
+    </div>
+</div>
+<div class="grid" >
+    <div class="col-12 lg:col-6" >
+        <div class="grid" >
+            <div class="col text center" >
+                <label class="text-2xl">Rendeléseim <i class="pi pi-truck ml-2 text-2xl" ></i></label>
+            </div>
+        </div>
+        <p-card *ngIf="!ordersNull">
+            <p-table [value]="myOrders" [tableStyle]="{ 'min-width': '50rem' }" [rows]="10"
+                     [showCurrentPageReport]="true"
+                     [rowsPerPageOptions]="[10, 25, 50]"
+                     [paginator]="true">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Termék neve</th>
+                        <th>Termék ára</th>
+                        <th>Termék kiszállításának helye</th>
+                        <th>Rendelés állapota</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product>
+                    <tr>
+                        <td>{{ product.product.productName }}</td>
+                        <td>{{ product.orderAmount }}</td>
+                        <td>{{ product.orderFullOrder }}</td>
+                        <td>{{ product.orderStatus }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-card>
+        <p-card *ngIf="ordersNull">
+            <h5>Nincs jelenleg rendelése.</h5>
+        </p-card>
+    </div>
+    <div class="col-12 lg:col-6" >
+
+            <div class="grid" >
+                <div class="col text center" >
+                    <label class="text-2xl">Véleményeim <i class="pi pi-comments ml-2 text-2xl" ></i></label>
+                </div>
+            </div>
+        <p-card *ngIf="!opinionsNull">
+            <p-table [value]="opinions" [tableStyle]="{ 'min-width': '50rem' }" [rows]="10"
+                     [showCurrentPageReport]="true"
+                     [rowsPerPageOptions]="[10, 25, 50]"
+                     [paginator]="true">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Termék neve</th>
+                        <th>Vélemény</th>
+                        <th>Érték</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product>
+                    <tr>
+                        <td>{{ product.productName }}</td>
+                        <td>{{ product.opinion }}</td>
+                        <td><p-rating [(ngModel)]="product.value" [readonly]="true" [cancel]="false" /></td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-card>
+        <p-card *ngIf="opinionsNull">
+            <h5>Nem adott még egy termékhez sem véleményt.</h5>
+        </p-card>
+    </div>
+</div>
+
+

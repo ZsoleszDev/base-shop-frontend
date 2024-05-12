@@ -1,0 +1,84 @@
+<p-table [value]="products"
+        [tableStyle]="{ 'min-width': '100rem' }"
+        #dt1
+        dataKey="id"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [loading]="loading"
+        [paginator]="true"
+        currentPageReportTemplate="A jelenelgi oldalon lévő termékek száma: {last} az összesen {totalRecords}-ből/ból"
+        [globalFilterFields]="['productName', 'productActualPrice', 'productDiscountedPrice', 'productDescription']"
+    >
+        <ng-template pTemplate="caption">
+            <div class="flex">
+                <button pButton pTooltip="Szűrés törlése" tooltipPosition="bottom" class="p-button-outlined mr-2" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+                <button pButton pTooltip="Táblázat frissítése" tooltipPosition="bottom" class="p-button-outlined" icon="pi pi-refresh" (click)="getAllProducts()"></button>
+                <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Keresés..." />
+            </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="productName">
+                    <div class="flex align-items-center">
+                        Név
+                        <p-sortIcon field="productName"></p-sortIcon>
+                        <p-columnFilter type="text" field="productName" display="menu"></p-columnFilter>
+                    </div>
+                </th>
+                <th pSortableColumn="productActualPrice">
+                    <div class="flex align-items-center">
+                        Aktuális ár
+                        <p-sortIcon field="productActualPrice"></p-sortIcon>
+                        <p-columnFilter type="text" field="productActualPrice" display="menu"></p-columnFilter>
+                    </div>
+                </th>
+                <th pSortableColumn="productDiscountedPrice">
+                    <div class="flex align-items-center">
+                        Kedvezményes ár
+                        <p-sortIcon field="productDiscountedPrice"></p-sortIcon>
+                        <p-columnFilter type="text" field="productDiscountedPrice" display="menu"></p-columnFilter>
+                    </div>
+                </th>
+                <th pSortableColumn="productDescription">
+                    <div class="flex align-items-center">
+                        Leírás
+                        <p-sortIcon field="productDescription"></p-sortIcon>
+                        <p-columnFilter type="text" field="productDescription" display="menu"></p-columnFilter>
+                    </div>
+                </th>
+                <th>
+                    Kép
+                </th>
+                <th>
+                    Kezelés
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td>{{ product.productName }}</td>
+                <td>{{ product.productActualPrice }}</td>
+                <td>{{ product.productDiscountedPrice }}</td>
+                <td><div class="overme" >{{ product.productDescription }}</div></td>
+                <td><p-button icon="pi pi-images" [rounded]="true" [text]="true" [raised]="true"
+                              (onClick)="showImages(product)"></p-button></td>
+                <td>
+                    <p-button icon="pi pi-pencil" pTooltip="{{product.productName}} szerkesztése" (onClick)="editProductDetails(product.productId)"
+                              [rounded]="true" severity="info" class="mr-1" tooltipPosition="left"></p-button>
+                    <p-button icon="pi pi-trash" pTooltip="{{product.productName}} törlése"
+                              [rounded]="true" severity="danger" tooltipPosition="left"
+                              (onClick)="confirmDelete($event,product.productId,product.productName)"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+<p-confirmPopup></p-confirmPopup>
+
+<p-dialog header="Termék képek" [(visible)]="imageDisplayer" [modal]="true" [style]="{ width: '70vw' }" [draggable]="false" [resizable]="false">
+    <items-image [images]="images"></items-image>
+</p-dialog>

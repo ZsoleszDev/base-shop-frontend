@@ -1,0 +1,18 @@
+<div *ngIf="haveItems">
+    <div class="grid mt-3 w-full">
+        <div class="col ml-4 text-center" >
+            <h2 class="base_font"> Legfrisebb termékeink. </h2>
+        </div>
+    </div>
+
+    <div class="grid w-full">
+        <div class="col ml-4 text-center flex align-items-center justify-content-center" *ngFor="let item of products">
+            <p-card header="{{ item.productName?item.productName:'nem tölt be' }}" (click)="routing(item.productId)" subheader="Kategória: {{item.productCategory?item.productCategory:'nem tölt be'}}" [style]="{ width: '260px' }">
+                <ng-template pTemplate="header">
+                    <img class="top_item_pic base_items_linear" alt="Card" [src]="item.productImages[0].url?item.productImages[0].url:'/assets/layout/images/rocket.png'" [alt]="item.productName?item.productName:'nem tölt be'" />
+                </ng-template>
+                <label class="old_price" >{{item.productActualPrice?item.productActualPrice:'1111'}} Ft</label><label class="base_font text-xl ml-2">{{item.productDiscountedPrice?item.productDiscountedPrice:'111'}} Ft</label>
+            </p-card>
+        </div>
+    </div>
+</div>

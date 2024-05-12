@@ -1,0 +1,96 @@
+.home_pic{
+    position: fixed;
+    width: 1932px;
+    height: 700px;
+    opacity: 0.5;
+}
+
+@media (max-width: 1970px) {
+    .home_pic{
+        left: -4px;
+    }
+}
+
+@media (max-width: 1246px) {
+    .home_pic{
+        left: -400px;
+    }
+}
+
+
+
+.ad_title{
+    position: absolute;
+    z-index: 2;
+    top: 98px;
+    left: 50px;
+    width: 573px;
+    height: 277px;
+    background-color: rgba(115, 40, 169, 0.86);
+    border-radius: 42px;
+    box-shadow: 1px 9px 26px 14px rgba(16, 16, 16, 0.5);
+}
+
+.ad_large_text1{
+    position: relative;
+    left: calc(50% - 164px);
+    top: 18px;
+    font-family: var(--font-family);
+    font-weight: bolder;
+    font-size: 47px;
+}
+.ad_large_text2{
+    position: relative;
+    left: calc(50% - 100px);
+    top: 33px;
+    font-family: "Pent-Up Rage", sans-serif;
+    color: #ffd700;
+    font-size: 66px;
+}
+
+.ad_large_text3{
+    position: relative;
+    font-family: var(--font-family);
+    font-size: 47px;
+    font-weight: bolder;
+    top: 46px;
+    left: calc(50% - 167px);
+}
+
+@media (max-width: 854px) {
+    .home_pic{
+        left: -800px;
+    }
+    .ad_title{
+        width: 344px;
+        height: 215px;
+        top: 361px;
+        left: calc(50% - 172px);
+    }
+    .ad_large_text1{
+        left: calc(50% - 118px);
+        font-size: 34px;
+    }
+    .ad_large_text2{
+        font-size: 49px;
+        left: calc(50% - 75px);
+    }
+    .ad_large_text3{
+        font-size: 34px;
+        top: 46px;
+        left: calc(50% - 121px);
+    }
+}
+
+.container-1{
+    position:absolute;
+    top: 519px;
+    z-index: 3;
+    background: rgb(4, 13, 25);
+    width: 100vw;
+    height: 500px;
+}
+
+.fast_deliver_container{
+    background-image: url("/assets/layout/advertising/deliver_back.jpg");
+}

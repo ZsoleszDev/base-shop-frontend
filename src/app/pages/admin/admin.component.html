@@ -1,0 +1,47 @@
+<img class="admin_bg" src="assets/layout/images/admin_dashboard.svg">
+<p-tabView styleClass="tabview-custom" [style]="{marginTop: '-20px',position: 'relative', zIndex: '2', opacity: '0.98'}" [(activeIndex)]="itemsrv.activatedIndex"
+           (onChange)="onTabChange($event)">
+    <!--<p-tabPanel>
+        <ng-template pTemplate="header">
+            <i class="pi pi-chart-bar mr-2"></i>
+            <span>{{ressrv.innerWidth >= 789? 'Vezérlőpult' : ''}}</span>
+        </ng-template>
+        <dashboard></dashboard>
+    </p-tabPanel>-->
+
+    <p-tabPanel>
+        <ng-template pTemplate="header">
+            <i class="pi pi-shopping-bag mr-2" ></i>
+            <span>{{ressrv.innerWidth >= 789? 'Termék hozzáadása/frissítése' : ''}}</span>
+        </ng-template>
+        <product-management></product-management>
+    </p-tabPanel>
+
+    <p-tabPanel>
+        <ng-template pTemplate="header">
+            <i class="pi pi-bolt mr-2" ></i>
+            <span>{{ressrv.innerWidth >= 789? 'Termék lista' : ''}}</span>
+        </ng-template>
+        <products-list></products-list>
+    </p-tabPanel>
+
+    <p-tabPanel>
+        <ng-template pTemplate="header">
+            <i class="pi pi-shopping-cart mr-2" ></i>
+            <span>{{ressrv.innerWidth >= 789? 'Rendelések kezelése' : ''}}</span>
+        </ng-template>
+        <user-orders></user-orders>
+    </p-tabPanel>
+
+    <p-tabPanel>
+        <ng-template pTemplate="header">
+            <i class="pi pi-comment mr-2" ></i>
+            <span>{{ressrv.innerWidth >= 789? 'Vélemények kezelése' : ''}}</span>
+        </ng-template>
+        <opinions-manage></opinions-manage>
+    </p-tabPanel>
+</p-tabView>
+
+
+
+

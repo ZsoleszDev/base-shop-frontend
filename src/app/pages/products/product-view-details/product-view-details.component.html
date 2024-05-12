@@ -1,0 +1,164 @@
+<div class="grid" *ngIf="disableActions">
+    <div class="col text-center" >
+        <h1>Kérem ne törölje ki az url-ből kapott adatokat</h1>
+        <h5>Navigáljon vissza és újra kattintson rá a termékre</h5>
+    </div>
+</div>
+<div *ngIf="!disableActions">
+    <div class="grid" >
+        <div [class]="ressrv.innerWidth < ressrv.prodview1 && ressrv.innerWidth > ressrv.prodview2?'col-6':ressrv.innerWidth <= ressrv.prodview2?'col-12':'col-4'" >
+            <div class="card"><!--pictures_gall-->
+                <div class="grid">
+                    <div class="col text-center h-36rem flex align-items-center justify-content-center" >
+                        <p-galleria [(value)]="product.productImages" [showIndicators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptionsForPic" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+                            <ng-template pTemplate="item" let-item>
+                                <img [src]="item.url" class="item_img" />
+                            </ng-template>
+                        </p-galleria>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div [class]="ressrv.innerWidth < ressrv.prodview1 && ressrv.innerWidth > ressrv.prodview2?'col-6':ressrv.innerWidth <= ressrv.prodview2?'col-12':'col-4'" >
+            <div class="grid" >
+                <div class="col" >
+                    <div class="card">
+                        <h1>{{product.productName}}</h1>
+                        <div class="grid" >
+                            <div [class]="ressrv.innerWidth < ressrv.prodview3?'col-12 text-center':'col-3 text-right'" >
+                                <p-rating [(ngModel)]="opinionAllStar" [readonly]="true" [cancel]="false"></p-rating>
+                            </div>
+                            <div [class]="ressrv.innerWidth < ressrv.prodview3?'col-12 text-center':'col'" >
+                                <strong *ngIf="opinionAllStar"> {{Math.round(opinionAllStar * 10) / 10}} </strong> | <strong>{{dbStar? dbStar + ' felhasználóból' : 'Még nem érkezett vélemény'}}</strong>
+                            </div>
+                        </div>
+                        <p-divider></p-divider>
+                        <div class="grid" >
+                            <div class="col">
+                                <h2>{{product.productDiscountedPrice}} Ft</h2>
+                            </div>
+                        </div>
+                        <div class="grid" >
+                            <div class="col" style="margin-top: -30px;">
+                                <h5 class="old_price line-through text-color-secondary">{{product.productActualPrice}} Ft</h5>
+                            </div>
+                        </div>
+                        <div class="grid" >
+                            <div class="col" >
+                                <p-button label="Megveszem most!" size="large" [disabled]="disableActions || usrv.roleMatch(['Admin'])" (onClick)="buyProduct($event,product.productId)" [rounded]="true" styleClass="w-full" icon="pi pi-dollar"></p-button>
+                            </div>
+                            <div class="col" >
+                                <p-button label="Kosárba rakom!" size="large" [disabled]="disableActions || usrv.roleMatch(['Admin'])" (onClick)="addToCart($event,product.productId)" [rounded]="true" styleClass="w-full" icon="pi pi-cart-plus"></p-button>
+                            </div>
+                            <p-confirmPopup />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid" >
+                <div class="col" >
+                    <div class="card">
+                        <div class="grid" >
+                            <div class="col-12 text-center lg:col-5">
+                                <img src="assets/layout/images/family_pic.jpg" class="ad_image" alt="family" [width]="200" [height]="200">
+                            </div>
+                            <div class="col-12 lg:col mt-5 ">
+                                <div class="grid" >
+                                    <div class="col text-center" >
+                                        <h3 class="primary-text" >Nyárinditó AKCIÓ!!</h3>
+                                    </div>
+                                </div>
+                                <div class="grid" >
+                                    <div class="col text-center" >
+                                        <h5>Minden termékünket leáraztunk, hogy csak a nyaralásra keljen koncentrálni ne a drága árakra!</h5>
+                                    </div>
+                                </div>
+                                        <img src="assets/layout/images/rocket.png" class="absolute mt-5" [width]="50" [height]="50" alt="raketa1">
+                                <img src="assets/layout/images/rocket.png" class="absolute mt-1 rocket_2" [width]="50" [height]="50" alt="raketa2">
+                                <img src="assets/layout/images/rocket.png" class="absolute mt-3 rocket_3" [width]="50" [height]="50" alt="raketa3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div [class]="ressrv.innerWidth < ressrv.prodview1?'col-12':'col-4'" >
+            <div class="card" >
+                <h5>Felhasználók véleményei<span class="pi pi-user text-primary ml-3"></span></h5>
+                <div class="grid" *ngIf="opinions.length == 0">
+                    <div class="col text-center" >
+                        <p-scrollPanel [style]="{ width: '100%', height: '370px'}">
+                            <div class="grid" >
+                                <div class="col text-center mt-8" >
+                                    <label>Még nem érkezett vélemény, legyen ön az első!</label>
+                                </div>
+                            </div>
+                        </p-scrollPanel>
+                    </div>
+                </div>
+                <p-scrollPanel *ngIf="opinions.length >= 1" [style]="{ width: '100%', height: '385px' }">
+                    <div *ngFor="let rating of opinions">
+                        <p-divider></p-divider>
+                        <p-card styleClass="card_model">
+                            <ng-template pTemplate="header">
+                                <div class="flex align-items-center gap-2 px-2">
+                                    <p-avatar [label]="rating.userName[0]" />
+                                    <span class="font-bold">{{ rating.userName }}</span>
+                                    <p-rating [(ngModel)]="rating.value" [readonly]="true" [cancel]="false"></p-rating>
+                                </div>
+                            </ng-template>
+                            <p class="m-0">
+                                {{ rating.opinion }}
+                            </p>
+                        </p-card>
+                    </div>
+                </p-scrollPanel>
+                <div class="col text-center" >
+                    <p-button [rounded]="true" (onClick)="openOpinion()" [disabled]="disableOpinion || !usrv.roleMatch(['User'])" label="Vélemény írása" class="mt-1" icon="pi pi-plus"></p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card" *ngIf="haveAnotherProd">
+        <div class="grid" >
+            <div class="col" >
+                <h5>Ezek is érdekelhetik:</h5>
+            </div>
+        </div>
+        <div class="grid w-full">
+            <div class="col ml-4 text-center flex align-items-center justify-content-center" *ngFor="let item of anotherProducts">
+                <p-card [style]="{ width: '260px' }">
+                    <ng-template pTemplate="header">
+                        <img class="top_item_pic base_items_linear" alt="Card" [src]="item.productImages[0].url" [alt]="item.productName" />
+                        <div class="grid" >
+                            <div class="col text-center" >
+                                <label>{{item.productName}}</label>
+                            </div>
+                        </div>
+                        <div class="grid" >
+                            <div class="col" >
+                                <label class="old_price" >{{item.productActualPrice}} Ft</label><label class="base_font ml-2">{{item.productDiscountedPrice}} Ft</label>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <p-button label="Érdekel!" (onClick)="routingAnotherPlace(item.productId)" ></p-button>
+                </p-card>
+            </div>
+        </div>
+    </div>
+    <div class="grid" >
+        <div class="card w-full" >
+            <div class="col mt-3 text-center" >
+                <div class="grid" >
+                    <h3>Leírás</h3><i class="pi pi-pencil ml-2"></i>
+                </div>
+                <div [innerHTML]="product.productDescription"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<p-dialog header="Véleményem a termékről" [(visible)]="opisrv.opinionVis" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+    <add-opinions></add-opinions>
+</p-dialog>

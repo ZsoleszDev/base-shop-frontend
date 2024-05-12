@@ -1,0 +1,18 @@
+.crossed_line{
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.base_items_linear{
+    object-fit: cover;
+    object-position: center;
+    height: 170px;
+    width: 170px;
+}
+
+.base_items_grid{
+    object-fit: cover;
+    object-position: center;
+    height: 250px;
+    width: 250px;
+}
