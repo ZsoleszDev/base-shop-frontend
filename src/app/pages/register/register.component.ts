@@ -47,7 +47,7 @@ export class RegisterComponent {
                             this.toast.error('Hiba!','Ezzel az E-mail címmel már regisztráltak!');
                             this.loading = false;
                         }else{
-                            this.toast.success('Siker!','Sikeres regisztráció, jó vásárlást kedves '+ userFirstName);
+                            this.toast.success('Siker!','Sikeres regisztráció, kérjük most lépjen be kedves '+ userFirstName);
                             this.router.navigate(['/login']);
                             this.loading = false;
                         }
