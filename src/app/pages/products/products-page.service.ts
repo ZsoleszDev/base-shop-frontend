@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {ProductsListService} from "../admin/products-list/products-list.service";
 import {BaseToastService} from "../../additional-modules/base-toast/base-toast.service";
 import {LayoutService} from "../../layout/structure/service/app.layout.service";
+import {ConfirmationService} from "primeng/api";
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,7 @@ export class ProductsPageService {
     }
 
     addToCart(productId: number){
+
         this.itemsrv.addToCart(productId).subscribe({
             next: (resp) =>{
                 this.toast.success('Sikeresen hozzáadta a terméket a kosarához!','');

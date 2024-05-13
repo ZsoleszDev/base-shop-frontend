@@ -9,6 +9,7 @@ import {DropdownModule} from "primeng/dropdown";
 import {TooltipModule} from "primeng/tooltip";
 import {RouterLink} from "@angular/router";
 import {BaseLoadingModule} from "../../../additional-modules/base-loading/base-loading.module";
+import {ConfirmPopupModule} from "primeng/confirmpopup";
 
 
 
@@ -23,7 +24,8 @@ import {BaseLoadingModule} from "../../../additional-modules/base-loading/base-l
         DropdownModule,
         TooltipModule,
         RouterLink,
-        BaseLoadingModule
+        BaseLoadingModule,
+        ConfirmPopupModule
     ]
 })
 export class MobilesModule { }

@@ -4,9 +4,11 @@ import {map} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ProductsListService} from "../../admin/products-list/products-list.service";
 import {ImageProcessingService} from "../../admin/products-list/items-image/image-processing.service";
-import {SelectItem} from "primeng/api";
+import {ConfirmationService, SelectItem} from "primeng/api";
 import {ProductsPageService} from "../products-page.service";
 import {ResolutionService} from "../../../additional-modules/resolution.service";
+import {UserService} from "../../../authentication/services/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-mobiles',
@@ -19,7 +21,8 @@ export class MobilesComponent implements OnInit{
     founds = 0;
     loading = true;
     loadingText = 'Telefonjaink betöltése...';
-    constructor(private itemsrv: ProductsListService,private imagepsrv: ImageProcessingService, public prodpagesrv: ProductsPageService, public ressrv: ResolutionService) {
+    constructor(private itemsrv: ProductsListService,private imagepsrv: ImageProcessingService, public prodpagesrv: ProductsPageService, public ressrv: ResolutionService,
+                private confirmationService: ConfirmationService,public usrv: UserService, private router: Router) {
     }
 
     get layout(){
@@ -57,4 +60,47 @@ export class MobilesComponent implements OnInit{
                 }
             )
     }
+
+    addToCart(event,productId){
+        if (this.usrv.roleMatch(['User'])){
+            this.prodpagesrv.addToCart(productId);
+        }else{
+            this.confirmationService.confirm({
+                target: event.target as EventTarget,
+                message: 'Ahhoz, hogy tudjon vásárolni nálunk be kell jelentkeznie',
+                acceptLabel: 'Bejelentkezek',
+                icon: 'pi pi-exclamation-triangle',
+                accept: () => {
+                    this.router.navigate(['/login']);
+                },
+                reject: () => {
+
+                }
+            });
+        }
+    }
+
+    get actionsDis(){
+        return this.usrv.roleMatch(['Admin']);
+    }
+
+    buyProduct(event,productId){
+        if (this.usrv.roleMatch(['User'])){
+            this.prodpagesrv.buyProduct(productId);
+        }else{
+            this.confirmationService.confirm({
+                target: event.target as EventTarget,
+                message: 'Ahhoz, hogy tudjon vásárolni nálunk be kell jelentkeznie',
+                acceptLabel: 'Bejelentkezek',
+                icon: 'pi pi-exclamation-triangle',
+                accept: () => {
+                    this.router.navigate(['/login']);
+                },
+                reject: () => {
+
+                }
+            });
+        }
+    }
+
 }
