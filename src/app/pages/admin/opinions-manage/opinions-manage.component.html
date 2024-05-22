@@ -11,7 +11,7 @@
     <ng-template pTemplate="caption">
         <div class="flex align-items-center justify-content-between">
             <button pButton class="p-button-outlined mr-2" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
-            <p-button (onClick)="refresh()" [outlined]="true" icon="pi pi-refresh"></p-button>
+            <button pButton pTooltip="Táblázat frissítése" tooltipPosition="bottom" class="p-button-outlined" icon="pi pi-refresh" (click)="refresh()"></button>
             <span class="p-input-icon-left ml-auto">
                 <i class="pi pi-search"></i>
                 <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Keresés..." />
@@ -22,7 +22,7 @@
         <tr>
             <th pSortableColumn="productName" style="width:20%">Termék neve <p-sortIcon field="productName"></p-sortIcon> <p-columnFilter type="text" field="productName" display="menu"></p-columnFilter></th>
             <th pSortableColumn="userName" style="width:20%">Felhasználó neve <p-sortIcon field="userName"></p-sortIcon> <p-columnFilter type="text" field="userName" display="menu"></p-columnFilter></th>
-            <th pSortableColumn="opinion" style="width:20%">Vélemény <p-sortIcon field="opinion"></p-sortIcon> <p-columnFilter type="text" field="opinion" display="menu"></p-columnFilter></th>
+            <th pSortableColumn="opinion">Vélemény <p-sortIcon field="opinion"></p-sortIcon> <p-columnFilter type="text" field="opinion" display="menu"></p-columnFilter></th>
             <th pSortableColumn="value" style="width:20%">Érték <p-sortIcon field="value"></p-sortIcon> <p-columnFilter type="text" field="value" display="menu"></p-columnFilter></th>
             <th>Kezelés</th>
         </tr>

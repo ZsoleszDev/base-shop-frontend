@@ -61,8 +61,8 @@
         <ng-template pTemplate="body" let-product>
             <tr>
                 <td>{{ product.productName }}</td>
-                <td>{{ product.productActualPrice }}</td>
-                <td>{{ product.productDiscountedPrice }}</td>
+                <td>{{ product.productActualPrice }} Ft</td>
+                <td>{{ product.productDiscountedPrice }} Ft</td>
                 <td><div class="overme" >{{ product.productDescription }}</div></td>
                 <td><p-button icon="pi pi-images" [rounded]="true" [text]="true" [raised]="true"
                               (onClick)="showImages(product)"></p-button></td>

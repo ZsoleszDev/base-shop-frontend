@@ -42,6 +42,10 @@ export class ProductsListComponent{
         table.clear();
     }
 
+    getAllProducts(){
+        this.admininit.getAllProducts();
+    }
+
     confirmDelete(event: Event, productId: number, productName: string) {
         this.confirmationService.confirm({
             //@ts-ignore

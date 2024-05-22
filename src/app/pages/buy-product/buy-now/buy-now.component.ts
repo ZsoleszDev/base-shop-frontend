@@ -75,9 +75,12 @@ export class BuyNowComponent implements OnInit{
                     this.router.navigate(['/orderConfirm']);
                 },
                 error: (err) => {
+                    this.loading = false;
                     console.log(err);
                 }
             })
+        }else{
+            this.loading = false;
         }
     }
 
@@ -86,18 +89,22 @@ export class BuyNowComponent implements OnInit{
         if (orderForm.value.iranyitoszam.toString().length < 4){
             this.toast.error('Hiba!','Az irányítószámnak 4 számjegyűnek kell lennie.');
             this.postalBad = true;
+            this.loading = false;
             return false
         } else if (orderForm.value.varos.length < 2) {
             this.toast.error('Hiba!','Kérem adja meg a várost.');
             this.cityBad = true;
+            this.loading = false;
             return false;
         }else if (orderForm.value.kozt.length < 5){
             this.toast.error('Hiba!','Kérem adja meg a Közterület nevét és típusát. pl.:( Kossuth utca 12. )');
             this.publicBad = true;
+            this.loading = false;
             return false;
         }else if (orderForm.value.contactNumber.length < 11){
             this.toast.error('Hiba!','Kérem adja meg a telefonszámát. pl.:( 06701234567 )');
             this.phoneBad = true;
+            this.loading = false;
             return false;
         }else{
             return true;
@@ -109,6 +116,7 @@ export class BuyNowComponent implements OnInit{
         this.cityBad = false;
         this.publicBad = false;
         this.phoneBad = false;
+        this.loading = false;
     }
 
     getQuantityForProduct(productId) {

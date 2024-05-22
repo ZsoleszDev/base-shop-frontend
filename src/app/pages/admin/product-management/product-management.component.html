@@ -24,7 +24,6 @@
                         <div class="col mt-2" >
                             <label [class]="prodDesCheck?'':'text-red-500'" >Termék leírása</label>
                             <p-editor [(ngModel)]="prodsrv.product.productDescription" (onTextChange)="countDesLetter($event)" name="productDescription" id="product-description" [style]="{ height: '320px', width: '100wv' }"></p-editor>
-                            <small [class]="prodDesCheck?'':'text-red-500'" >Minimum 100 karakter Maximum 1000 karakter</small>
                         </div>
                     </div>
 

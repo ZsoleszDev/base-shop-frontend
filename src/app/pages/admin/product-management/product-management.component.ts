@@ -45,8 +45,9 @@ export class ProductManagementComponent{
     }
 
     addNewProd(){
-        this.router.navigate(['/admin-dashboard']);
-        location.reload();
+        this.router.navigate(['/admin-dashboard']).then(()=>{
+            location.reload();
+        });
         this.prodsrv.hideForm = false;
     }
 

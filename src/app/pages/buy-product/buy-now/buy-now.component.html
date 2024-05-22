@@ -123,7 +123,7 @@
                     <div class="col" >
                         <div class="flex flex-column gap-2">
                             <label for="postalcode">Irányítószám</label>
-                            <p-inputNumber
+                            <p-inputNumber styleClass="w-full"
                                 placeholder="1022"
                                 [maxlength]="4"
                                 [minlength]="4"
@@ -148,9 +148,11 @@
                             />
                         </div>
                     </div>
-                    <div class="col-12 lg:col" >
+                </div>
+                <div class="grid" >
+                    <div class="col-12" >
                         <div class="flex flex-column gap-2">
-                            <label for="publicarea">Közterület neve és típusa</label>
+                            <label for="publicarea">Közterület neve, típusa és száma (emelet, ajtószám)</label>
                             <input
                                 placeholder="Pelda utca 16."
                                 pInputText
